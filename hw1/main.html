@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang=""ko>
+    <head>
+        <meta charset="utf-8"/>
+        <title>RESTful Web SERVER</title>
+    </head>
+
+    <body>
+        <h1>Welcome to Posting Page</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+        <div>
+            <form id="form">
+                writer : <input type="text" id="username">
+                <br/>
+                title : <input type="text" id="title">
+                <br/>
+                contents : <input type="text" id="contents">
+                <br/>
+                <button type="submit">저장</button>
+
+            </form>
+            
+        </div>
+        <br>
+        <div>
+            <h2>Post List</h2>
+        </div>
+        <div id="list"></div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="./main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1 @@
+console.log('index.js에서 출력합니다.');
