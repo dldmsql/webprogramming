@@ -73,7 +73,7 @@ document.getElementById('form').addEventListener('submit', async (e) => {
   }
   try {
     // 서버에 사용자 등록 요청 & getUser() 실행
-    await axios.post('/user', { name, memo });
+    await axios.post('/visit/user', { name, memo });
     getUser();
   } catch (err) {
     console.error(err);

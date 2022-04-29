@@ -8,45 +8,43 @@ router.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../public/visit.html'));
 });
 
-router.get('/users', async (req, res) => {
-    res.json(users);
+router.get('/users', (req, res) => {
+    res.sendFile(path.join(__dirname, './users.json'));
+});
+router.use('/user', async (req, res, next) => {
+    req.users = JSON.parse(
+        await fs.readFile(path.join(__dirname, './users.json'))
+    );
+    next();
 });
 
-router.post('/user', (req, res) => {
-    console.log(req.body);
+router.post('/user', async (req, res) => {
     const {name, memo} = req.body;
     const id = Date.now();
     users[id] = {name,memo};
-    console.log(users);
+    await fs.writeFile(
+        path.join(__dirname, './users.json'),
+        JSON.stringify(req.users)
+    );
     res.end();
-});
-
-router.put('/user/:id', (req, res) => {
-    console.log(req.body);
-    const {name, memo} = req.body;
-    users[req.params.id] = {name, memo};
-    console.log(users);
-    res.end();
-});
-
-router.delete('/user/:id', (req, res) => {
-    delete users[req.params.id];
-    res.end();
-});app.get('/users', async (req, res) => {
-    res.json(users);
-    console.log(users);
 });
 
 router.route('/user/:id')
 .put( async (req, res) => {
-    console.log(req.body);
     const {name, memo} = req.body;
-    users[req.params.id] = {name, memo};
-    console.log(users);
+    req.users[req.params.id] = {name, memo};
+    await fs.writeFile(
+        path.join(__dirname, './users.json'),
+        JSON.stringify(req.users)
+    );
     res.end();
 })
-.delete( (req, res) => {
+.delete(async (req, res) => {
     delete users[req.params.id];
+    await fs.writeFile(
+        path.join(__dirname, './users.json'),
+        JSON.stringify(req.users)
+    );
     res.end();
 });
 
