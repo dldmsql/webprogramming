@@ -4,8 +4,15 @@ const path = require('path');
 const router  = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(req.signedCookies);
-    if(req.signedCookies.admit) res.send('<h1>Login Success</h1>');
+    console.log(req.session);
+    console.log(req.sessionID);
+    if(req.session.views)
+        res.send(
+            `<h2>views: ${req.session.views}</h2><h2>expires in: ${
+                req.session.cookie.maxAge / 1000
+            }s</h2>`
+        );
+    
     else res.redirect('/login');
 });
 
@@ -15,20 +22,10 @@ router.get('/login', (req, res)=> {
 
 router.post('/admit',(req,res)=>{
     const {login, password} = req.body;
-    console.log(req.query);
-    console.log(req.body);
+    // console.log(req.query);
+    // console.log(req.body);
     if(login== 'guest' && password =='7777'){
-        res.cookie('admit', true, {
-            expires: new Date(Date.now()+ 3000),
-            httpOnly:true,
-            secure:false,
-            path:'/',
-            signed: true,
-        });
-        // res.clearCookie('admit',true, {
-        //     httpOnly:true,
-        //     path:'/',
-        // });
+        req.session.views = (req.session.views || 0) +1;
         res.redirect('/');
     } else {
         res.redirect('/login');
