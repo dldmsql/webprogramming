@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title> <%=title%></title>
+        <link rel="stylesheet" href="./forntUser.css"/>
+    </head>
+    <body>
+        <header>
+            <%- include('./header'); %>
+        </header>
+
+        <h2> <%= title %></h2>
+        <div>
+            <form id="form" action="/upload" method="post" enctype="multipart/form-data">
+                <label>전송할 파일</label>
+                <input type="file" name="image"><br>
+                <label>파일 이름</label>
+                <input type="text" name="title"><br>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <p>
+        <div id="list">
+
+        </div>
+        <footer>
+            <%- include('./footer'); %>
+        </footer>
+        
+    </body>
+</html>
