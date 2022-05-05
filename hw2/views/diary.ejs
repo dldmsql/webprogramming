@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <title> <%=title%></title>
+        <link rel="stylesheet" href="./forntUser.css"/>
+    </head>
+    <body>
+        <header>
+            <%- include('./header'); %>
+        </header>
+
+        <h2> <%= title %></h2>
+        <div>
+            <form id="form">
+                <label>제목</label>
+                <input type="text" id="title"><br>
+                <label>내용</label>
+                <input type="text" id="contents"><br>
+                <button type="submit">저장</button>
+            </form>
+        </div>
+        <p>
+        <div id="list">
+
+        </div>
+        <footer>
+            <%- include('./footer'); %>
+        </footer>
+        <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="./forntUser.js"></script>
+    </body>
+</html>
