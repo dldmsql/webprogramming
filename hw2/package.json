@@ -1,21 +1,24 @@
 {
   "name": "hw2",
   "version": "1.0.0",
-  "description": "",
+  "description": "미들웨어\r - morgan\r - static\r - json\r - urlenceded\r - cookie-parser\r - express-session\r - dotenv\r - multer",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.19.0",
-    "sequelize-cli": "^6.4.1",
-    "session-file-store": "^1.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "json": "^11.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "stati": "^0.0.1",
+    "static": "^2.0.0"
   }
 }

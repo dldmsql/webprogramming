@@ -1,3 +1,6 @@
+/*
+    module 정의
+*/
 const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
@@ -5,14 +8,19 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const session = require('express-session');
-const fileStore = require('session-file-store');
 
-const loginRouter = require('./routes/login');
-const diaryRouter = require('./routes/diary');
+/*
+    라우터 정의
+*/
+const indexRouter = require('./routes');
+const writeRouter = require('./routes/writer');
+const uploadRouter = require('./routes/upload');
 
+/*
+    app set 정의
+*/
 const app = express();
-
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -33,13 +41,16 @@ app.use(
             maxAge: 600000,
         },
         name: 'my-session-cookie',
-        store: new fileStore()
     })
 );
 
-app.use('/', loginRouter);
-app.use('/diary', diaryRouter);
+app.use('/', indexRouter);
+app.use('/write', writeRouter);
+app.use('/upload', uploadRouter);
 
+/*
+    에러 처리
+*/
 app.use( ( req, res, next) => {
     res.status(404).send(`${req.method} ${req.path} is NOT FOUND`);
 });
@@ -49,6 +60,9 @@ app.use( (err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+/*
+    서버 실행
+*/
 app.listen(app.get('port'), () => {
     console.log(`http://localhost:${app.get('port')}에서 대기중`);
 });

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title> <%=title%></title>
-        <link rel="stylesheet" href="./forntUser.css"/>
+        <link rel="stylesheet" href="./frontUser.css"/>
     </head>
     <body>
         <header>
@@ -13,11 +13,13 @@
         <h2> <%= title %></h2>
         <div>
             <form id="form">
-                <label>제목</label>
-                <input type="text" id="title"><br>
-                <label>내용</label>
+                <label>할 일</label>
                 <input type="text" id="contents"><br>
-                <button type="submit">저장</button>
+                <label>날짜</label>
+                <input type="text" id="date"><br>
+                <label>완료 여부 ( Y, N )</label>
+                <input type="text" id="done"><br>
+                <button type="submit">제출</button>
             </form>
         </div>
         <p>
@@ -28,6 +30,6 @@
             <%- include('./footer'); %>
         </footer>
         <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="./forntUser.js"></script>
+        <script src="./frontUser.js"></script>
     </body>
 </html>
