@@ -23,3 +23,39 @@ RDB -> 데이터를 저장할 때, 형식을 정확히 지정해야 한다. 틀�
 NoSQL -> RDB 아닌 거. RDB 안에 저장한 걸 CURD할 때, SQL로 하지 않아. 이건 주로 빅데이터에서 사용한다. 검색엔진? 번역?
 # 시퀄라이즈
 js 코드로 DB관리 해준다.
+
+
+# 추가로 작성
+## 외래키 FK
+다른 테이블과의 관계를 명시할 때 사용한다.
+다른 테이블의 기본 키를 저장한다.
+
+문법
+`
+FOREIGN KEY (컬럼명) REFERENCES DB.TABLE(컬럼)
+`
+* CASCADE 설정
+ON DELETE CASCADE 정보 지워질 때 같이 지워지기
+ON UPDATE CASECADE 정보 업데이트될 때 같이 업데이트하기
+
+# CRUD
+CREATE
+`
+INSERT INTO TABLE (컬럼 ...) VALUES (값 ...);
+`
+READ
+`
+SELECT 컬럼 FROM TABLE;
+SELECT 컬럼 FROM TABLE WHERE 조건;
+SELECT 컬럼 FROM TABLE ORDER BY id DESC;
+SELECT 컬럼 FROM TABLE LIMIT 1; // 개수 제한 ( 페이지네이션)
+SELECT 컬럼 FROM TABLE LIMIT 1 OFFSET 1; // 스킵할 데이터 개수 설정 
+`
+UPDATE
+`
+UPDATE TABLE SET 컬럼 = 값 WHERE 조건;
+`
+DELETE
+`
+DELETE FROM TABLE WHERE 조건;
+`
