@@ -5,9 +5,12 @@ const path = require('path');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
+const passport = require('passport');
 
 dotenv.config();
 const pageRouter = require('./routes/page');
+const authRouter = require('./routes/auth');
+const { sequelize } = require('./models');
 
 const app = express();
 app.set('port', process.env.PORT || 8001);
@@ -17,12 +20,22 @@ nunjucks.configure('views', {
     watch: true,
 });
 
+sequelize
+.sync({ forcce : false })
+.then(() => {
+    console.log('데이터베이스 연결 성공');
+})
+.catch((err) => {
+    console.error(err);
+});
+
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(session({
+app.use(
+    session({
     resave: false,
     saveUninitialized : false,
     secret: process.env.COOKIE_SECRET,
@@ -32,7 +45,12 @@ app.use(session({
     },
 }));
 
+// passport 초기화 & 세션 미들웨어 실행
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', pageRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
