@@ -26,7 +26,6 @@ router
     const post = await Post.update({
       where: {id: req.path.id},
       content : req.body.content,
-      UserId: req.user.id,
     });
     console.log('Post : ' , post.constent, post.UserId);
     res.redirect('/');
