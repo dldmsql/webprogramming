@@ -23,12 +23,23 @@ router
 // 포스트 수정
 .put('/:id', isLoggedIn, async (req, res, next) => {
   try {
-    const post = await Post.update({
-      where: {id: req.path.id},
-      content : req.body.content,
-    });
-    console.log('Post : ' , post.constent, post.UserId);
-    res.redirect('/');
+    const postId = req.params.id;
+    const content = req.body.content;
+    const post = await Post.findOne({where:{id:postId}});
+    console.log(post);
+    if(post){
+      Post.update({
+        content : content,
+      }, {
+        where: {id: postId},
+      });
+      res.render('main', {
+        title: 'NodeBird',
+        twit: post,
+      });
+    } else {
+      res.status(404).send('no post');
+    }
   } catch (error) {
     console.error(error);
     next(error);
@@ -37,9 +48,11 @@ router
 // 포스트 삭제
 .delete('/:id', isLoggedIn, async (req, res, next) => {
   try {
+    const postId = req.params.id;
     await Post.destroy({
-      where: {id: req.path.id}
+      where: {id: postId}
     })
+    res.send("게시물 삭제 완료");
   } catch (error) {
     console.error(error);
     next(error);

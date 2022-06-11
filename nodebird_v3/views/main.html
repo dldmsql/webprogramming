@@ -9,7 +9,7 @@
               <textarea id="twit" name="content" maxlength="140"></textarea>
             </div>
             <div>
-              <button id="twit-btn" type="submit" class="btn">짹짹</button>
+              <button id="twit-btn" type="submit" class="btn">등록</button>
             </div>
           </form>
         </div>
@@ -23,8 +23,53 @@
             <input type="hidden" value="{{twit.id}}" class="twit-id">
             <div class="twit-author">{{twit.User.nick}}</div>
             <div class="twit-content">{{twit.content}}</div>
+            <div>
+              <button class="twit-modify btn">수정하기</button>
+              <button class="twit-delete btn">삭제하기</button>  
+            </div>
           </div>
         {% endfor %}
       </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.querySelectorAll('.twit-modify').forEach(function(tag) {
+    console.log(tag);
+    tag.addEventListener('click', function(){
+
+      const id = document.querySelector('.twit-id').value;
+      const input = prompt('변경할 내용 입력해주세요.');
+      
+      if(input) {
+        axios.put(`/post/${id}`, {content : input})
+        .then(()=>{
+
+          location.reload();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      }
+    });
+  });
+  document.querySelectorAll('.twit-delete').forEach(function(tag) {
+    console.log(tag);
+    tag.addEventListener('click', function(){
+      const id = document.querySelector('.twit-id').value;
+      const input = confirm('삭제하시겠어요?');      
+      if(input) {
+        axios.delete(`/post/${id}`)
+        .then(()=>{
+          console.log('바꼈나요?');
+          location.reload();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      }
+    });
+  });
+</script>
 {% endblock %}

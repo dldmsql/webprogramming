@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/main.css">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container">
@@ -13,19 +16,10 @@
         <div class="profile">
           {% if user and user.id %}
             <div class="user-name">{{'안녕하세요! ' + user.nick + '님'}}</div>
-            <!-- 
-            <div class="half">
-              <div>팔로잉</div>
-              <div class="count following-count">{{followingCount}}</div>
-            </div>
-            <div class="half">
-              <div>팔로워</div>
-              <div class="count follower-count">{{followerCount}}</div>
-            </div> 
-            -->
           <input id="my-id" type="hidden" value="{{user.id}}">
-          <a id="my-profile" href="/profile" class="btn">내 프로필</a>
+          <a id="my-profile" href="/profile" class="btn">내가 기록한 하루들</a>
           <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+          <a id="home" href="/" class="btn">홈으로</a>
         {% else %}
           <form id="login-form" action="/auth/login" method="post">
             <div class="input-group">
@@ -42,9 +36,7 @@
           </form>
         {% endif %}
         </div>
-        <footer>
-          Made by JY Park
-        </footer>
+        {% include "footer.html" %}
       </div>
       {% block content %}
       {% endblock %}

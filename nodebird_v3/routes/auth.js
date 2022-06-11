@@ -2,27 +2,35 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 
 const passport = require('../passport/index.js');
-const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares'); // 로그인 여부
 const User = require('../models/user');
 
 const router = express.Router();
 
 // local 회원가입
+/*
+request.body
+{
+  "email": "asdf@asdf.com",
+  "nick" : "nickname",
+  "password" : "thisispassword"
+}
+*/
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
   const { email, nick, password } = req.body;
   try {
     const exUser = await User.findOne({ where: { email } });
-    if (exUser) {
+    if (exUser) { // 유저가 존재하면, redirect
       return res.redirect('/join?error=exist');
     }
-    console.info('___User.create(): ' + nick);
-    const hash = await bcrypt.hash(password, 12);
+    console.info('___User.create(): ' + nick); 
+    const hash = await bcrypt.hash(password, 12); // pw 암호화
     await User.create({
       email,
       nick,
       password: hash,
-    });
-    return res.redirect('/');
+    }); // 유저가 없으면, DB에 새로 생성
+    return res.redirect('/'); 
   } catch (error) {
     console.error(error);
     return next(error);

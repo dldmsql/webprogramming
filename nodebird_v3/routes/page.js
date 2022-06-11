@@ -11,8 +11,27 @@ router.use((req, res, next) => {
 });
 
 // 사용자 프로필 조회
-router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile', { title: '내 정보 - NodeBird' });
+router.get('/profile', isLoggedIn, async (req, res, next) => {
+  console.log(req.user.id);
+  try {
+    const posts = await Post.findAll({
+      attributes : ['content', 'updatedAt'],
+      include: {
+        model: User,
+        attributes: ['id', 'nick'],
+        where : {id: req.user.id},
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    res.render('profile', { 
+      title: '내 정보 - NodeBird' ,
+      twits : posts
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+ 
 });
 
 // 회원가입
@@ -41,25 +60,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// 내가 작성한 포스트 목록 조회
-router.get('/writer', isLoggedIn, async (req, res) => {
-  try {
-    const posts = await Post.findByPk({
-      where: {id: req.path.id},
-      include: {
-        model: User,
-        attributes : ['id', 'nick'],
-      },
-      order: [['createdAt', 'DESC']],
-    });
-    res.render('myPost', {
-      title: 'MyPostList',
-      twits : posts,
-    });
-  } catch (error) {
-    console.error(err);
-    next(err);
-  }
-})
+
 
 module.exports = router;
