@@ -10,7 +10,7 @@ router.use((req, res, next) => {
   next();
 });
 
-// 사용자 프로필 조회
+// 사용자가 작성한 포스트 목록 조회
 router.get('/profile', isLoggedIn, async (req, res, next) => {
   console.log(req.user.id);
   try {
