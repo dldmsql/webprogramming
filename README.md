@@ -4,7 +4,3 @@
 - 주차별
   - 강의내용 > 노션
   - 예제코드 > 깃헙
-
-## git commit message rule
-* week[i]
-* week[i] hw
