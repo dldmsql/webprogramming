@@ -4,3 +4,17 @@
 - 주차별
   - 강의내용 > 노션
   - 예제코드 > 깃헙
+
+- 토이 프로젝트 총 3개
+
+## What I learn
+
+node.js
+express
+ejs
+pug
+sequelize
+mongodb
+socket
+mysql
+oauth
