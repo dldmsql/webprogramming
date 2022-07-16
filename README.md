@@ -1,20 +1,19 @@
-# webprogramming
- - 고급웹프로그래밍 강의내용 정리하는 레포입니다.
+## 레포지토리 소개
 
-- 주차별
-  - 강의내용 > 노션
-  - 예제코드 > 깃헙
+명지대학교 2022-1학기 고급 웹 프로그래밍 강의 코드를 기록하는 레포지토리
 
-- 토이 프로젝트 총 3개
+* 수업 코드
+* 토이 프로젝트 3개
 
-## What I learn
+## 사용 기술 스택
 
-node.js
-express
-ejs
-pug
-sequelize
-mongodb
-socket
-mysql
-oauth
+* Javascript
+* Node.js
+* Express
+* EJS
+* Nunjucks
+* MySQL
+* MongoDB
+* Socket.io
+* Oauth2
+* npm
